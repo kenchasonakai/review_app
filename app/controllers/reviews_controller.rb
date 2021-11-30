@@ -1,6 +1,7 @@
 class ReviewsController < ApplicationController
   def new
     @review = Review.new
+    @item = RakutenWebService::Ichiba::Item.search(item_code: params[:item_code])
   end
 
   def create
