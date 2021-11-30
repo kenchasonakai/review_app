@@ -1,4 +1,4 @@
-<div class="container m-4">
+<div class="container my-4 mx-auto">
 <h1>商品一覧</h1>
   <%= form_with url: items_path, method: :get, class: "d-flex gap-1 mb-3" do |f| %>
     <%= f.text_field "keyword", placeholder: "検索キーワード" %>
@@ -12,13 +12,17 @@
           <%= image_tag item["mediumImageUrls"][0], class: 'card-img-top' %>
           <div class="card-body">
             <p class="card-title">
-              <%= link_to resize_text(item["itemName"], 35), item["itemUrl"] %>
+              <%= link_to resize_text(item["itemName"], 35), item_path(item["itemCode"]) %>
             </p>
             <p>
               <%= "#{item["itemPrice"]}円" %>
             </p>
             <p>
-              <%= "itemCode: #{item["itemCode"]}" %>
+              <% score_array = @reviews.where(item_code: item["itemCode"]).pluck(:score) %>
+              総合評価: <%= score_array.size > 0 ? score_array.sum.fdiv(score_array.size).round(2) : 'まだ評価がありません' %>
+            </p>
+            <p>
+              <%= link_to "レビュー", new_review_path(item_code: item["itemCode"]) %>
             </p>
           </div>
         </div>

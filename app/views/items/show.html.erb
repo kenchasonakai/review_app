@@ -1,0 +1,19 @@
+<div class="container m-5">
+  <div class="d-flex align-items-stretch w-50 mx-auto">
+    <div>
+      <%= image_tag @item.response['Items'].first["mediumImageUrls"][0], class: 'img-thumbnail' %>
+    </div>
+    <p class='w-75 ms-3 border p-2'>
+      <%= resize_text(@item.response['Items'].first["itemName"], 100) %>
+    </p>
+  </div>
+  <div class='w-50 mx-auto'>
+    <% @item_reviews.each do |item_review| %>
+      <div class="border mb-1">
+        <p>ニックネーム: <%= item_review.user_name %>
+        <p>評価: <%= item_review.score %>
+        <p>コメント: <%= item_review.content %>
+      </div>
+    <% end %>
+  </div>
+</div>
