@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   def index
     page = params[:current_page]&.to_i || 1
     page_type = params[:page_type]
-    keyword = params[:keyword].present? ? params[:keyword] : "楽天"
+    keyword = params[:keyword].present? ? params[:keyword] : "ファラオ"
     @items = RakutenWebService::Ichiba::Item.search(keyword: keyword, hits: 20, page: curricurate_page(page,page_type))
     @reviews = Review.all
   end
